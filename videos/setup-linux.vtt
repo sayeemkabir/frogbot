@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:07.858
+Here is how to install Frog Bot on Linux. One command does it, on any 64 bit Linux.
+
+00:00:08.258 --> 00:00:15.242
+First, open a terminal. On Ubuntu, press Control, Alt and T together.
+
+00:00:15.642 --> 00:00:29.304
+Go to the Frog Bot website, copy the Linux install command, paste it into the terminal, and press Enter. It may ask for your password once, to set up the browser security sandbox.
+
+00:00:29.704 --> 00:00:36.918
+Frog Bot opens by itself. Paste your Claude or OpenAI API key and click Start.
+
+00:00:37.318 --> 00:00:44.051
+Your browser opens the ROS dashboard sign in. Click Allow, just once.
+
+00:00:44.451 --> 00:00:52.899
+Now chat with Frog. Next time, open Frog Bot from your apps menu, or type frogbot in a terminal.

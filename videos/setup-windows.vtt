@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:08.613
+Here is how to install Frog Bot on Windows. It takes about two minutes, and you do not need any technical skills.
+
+00:00:09.013 --> 00:00:17.837
+Open your browser and go to sayeemkabir dot github dot io slash frogbot. Click the green Download for Windows button.
+
+00:00:18.237 --> 00:00:32.464
+Open the file you downloaded. If Windows says it protected your PC, that is normal for new apps. Click More info, then Run anyway. Frog Bot installs and opens by itself.
+
+00:00:32.864 --> 00:00:42.247
+On the welcome screen, paste your Claude or OpenAI API key and click Start. Your key stays encrypted on your own computer.
+
+00:00:42.647 --> 00:00:52.535
+Your browser then opens the ROS dashboard sign in. Click Allow, just once. Frog Bot stays connected after that.
+
+00:00:52.935 --> 00:01:00.053
+That is it. Chat with Frog like you would with a teammate, and add more agents with the plus button.
+
+00:01:00.453 --> 00:01:13.006
+One last thing. Closing the window keeps Frog Bot running in the tray, so your agents can keep working. To close it fully, right click the frog in the tray and choose Quit.
