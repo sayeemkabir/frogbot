@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:07.894
+Here is how to install Frog Bot on a Mac. One command does everything, and it takes about two minutes.
+
+00:00:08.294 --> 00:00:16.282
+First, open Terminal. Press Command and Space together, type Terminal, and press Enter.
+
+00:00:16.682 --> 00:00:32.084
+Go to the Frog Bot website and copy the Mac install command. Paste it into Terminal and press Enter. It downloads Frog Bot, puts it in your Applications folder, takes care of Mac security, and opens the app.
+
+00:00:32.484 --> 00:00:38.768
+When Frog Bot opens, paste your Claude or OpenAI API key and click Start.
+
+00:00:39.168 --> 00:00:45.901
+Your browser opens the ROS dashboard sign in. Click Allow, just once.
+
+00:00:46.301 --> 00:00:53.470
+Now chat with Frog. Next time, open Frog Bot from Applications or Launchpad.
+
+00:00:53.870 --> 00:01:04.992
+If you downloaded the zip file instead, move Frog Bot to Applications, and run the command on screen once in Terminal. The install command does this for you.
