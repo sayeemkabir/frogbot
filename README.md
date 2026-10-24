@@ -1,7 +1,7 @@
 <p align="center"><img src="assets/icon.png" width="96" alt="Frog Bot"></p>
 
 <h1 align="center">Frog Bot</h1>
-<p align="center"><b>Your AI team, on your computer.</b><br>Agents that work like teammates, talk to each other, use your apps, and ask before they act.</p>
+<p align="center"><b>Your local AI team.</b><br>AI teammates that live on your own computer, work together, use your apps, and ask before they act.<br>Your agents, files, memory and keys stay local.</p>
 <p align="center"><a href="https://sayeemkabir.github.io/frogbot/"><b>🌐 Website and videos</b></a> · <a href="https://github.com/sayeemkabir/frogbot/releases/latest"><b>⬇ All downloads</b></a></p>
 
 ---

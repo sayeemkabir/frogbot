@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Frog Bot · your AI team, on your computer</title>
-<meta name="description" content="Frog Bot is a desktop app where AI agents work like teammates on your computer. They talk to each other, use your apps, and ask before they act. Free download for Windows, Mac and Linux." />
+<title>Frog Bot · your local AI team</title>
+<meta name="description" content="Frog Bot is your local AI team: AI agents that live on your own computer and work like teammates. Your agents, files, memory and keys stay local. They talk to each other, use your apps, and ask before they act. Free download for Windows, Mac and Linux." />
 <link rel="icon" href="assets/icon.png" />
-<meta property="og:title" content="Frog Bot" />
-<meta property="og:description" content="Your AI team, on your computer." />
+<meta property="og:title" content="Frog Bot · your local AI team" />
+<meta property="og:description" content="Your local AI team. Agents that live on your computer, work together, and ask before they act." />
 <meta property="og:image" content="assets/teamwork.png" />
 <style>
   :root {
@@ -79,6 +79,11 @@
   .faq details[open] summary::after { transform: rotate(45deg); }
   .faq p { color: var(--dim); margin: 10px 0 0; }
   .faq code { font-size: 13px; background: #050706; padding: 2px 6px; border-radius: 6px; }
+  .local-pill { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 6px 14px; border-radius: 999px; font-size: 14px; font-weight: 650; color: #bff3d4; background: rgba(61,220,132,.1); border: 1px solid rgba(61,220,132,.35); }
+  .local-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 rgba(61,220,132,.7); animation: ping 1.8s ease-out infinite; }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(61,220,132,.7); } 100% { box-shadow: 0 0 0 10px rgba(61,220,132,0); } }
+  .local-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 10px; margin: 22px auto 0; max-width: 760px; }
+  .local-strip span { padding: 7px 13px; border-radius: 12px; font-size: 14px; color: var(--dim); background: var(--glass); border: 1px solid var(--line); }
   footer { padding: 40px 0 60px; color: var(--faint); text-align: center; font-size: 14px; border-top: 1px solid var(--line); }
   .toast { position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 20px); opacity: 0; background: #12201a; border: 1px solid rgba(61,220,132,.4); padding: 10px 16px; border-radius: 12px; transition: all .35s var(--spring); }
   .toast.on { opacity: 1; transform: translate(-50%, 0); }
@@ -97,22 +102,26 @@
 
 <header class="hero wrap">
   <img class="logo-float" src="assets/icon.png" alt="Frog Bot" />
-  <h1 class="reveal">Your AI team,<br /><span class="grad">on your computer.</span></h1>
-  <p class="lead reveal">Frog Bot gives you agents that work like teammates. Chat with them, put them in a group, and watch them work together. They use your apps, and they always ask before they act for you.</p>
+  <div class="local-pill reveal"><span class="dot"></span> Runs on your computer</div>
+  <h1 class="reveal">Your <span class="grad">local</span> AI team.</h1>
+  <p class="lead reveal">Frog Bot puts AI teammates on your own computer. Chat with them, put them in a group, and watch them work together. They use your apps, and they always ask before they act for you.</p>
+  <div class="local-strip reveal">
+    <span>🖥️ Lives on your computer</span><span>📁 Your files stay local</span><span>🧠 Memory saved locally</span><span>🔐 Keys encrypted on your machine</span>
+  </div>
 
   <div class="download reveal" id="download">
     <a class="btn-main" id="main-btn" href="#">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" /></svg>
       <span id="main-label">Download Frog Bot</span>
     </a>
-    <div class="meta" id="main-meta">Free · Windows, Mac and Linux</div>
+    <div class="meta" id="main-meta">Free · your local AI team for Windows, Mac and Linux</div>
     <div id="extra"></div>
     <div class="others" id="others"></div>
   </div>
 </header>
 
 <section id="see" class="wrap">
-  <h2 class="reveal">Watch your agents work together</h2>
+  <h2 class="reveal">Your local teammates, working together</h2>
   <p class="sub reveal">Every agent shows what it is doing, live. When two agents work together, you see the hand-off. When one needs you, a bar tells you exactly what and where.</p>
   <div class="shot reveal"><img src="assets/teamwork.png" alt="Two agents working together in a group chat" loading="lazy" /></div>
   <div class="gallery">
@@ -137,7 +146,7 @@
 
 <section id="features" class="wrap">
   <h2 class="reveal">Simple enough for anyone</h2>
-  <p class="sub reveal">Paste one key, and you have a team.</p>
+  <p class="sub reveal">Paste one key, and you have a local team.</p>
   <div class="features">
     <div class="feature reveal"><div class="ico">🐸</div><h3>Agents with real jobs</h3><p>Give each agent a name and a job in plain words. Each one has its own memory and its own folder.</p></div>
     <div class="feature reveal"><div class="ico">👥</div><h3>They work together</h3><p>Agents message each other, hand off work, and ask you to add a new teammate when they need one.</p></div>
@@ -146,12 +155,13 @@
     <div class="feature reveal"><div class="ico">🔌</div><h3>Uses your apps</h3><p>ROS dashboard built in. Add Slack, Notion, GitHub, Linear or any MCP app by filling in a few fields.</p></div>
     <div class="feature reveal"><div class="ico">🌐</div><h3>Its own browser</h3><p>Each agent drives its own Chrome window: opens sites, reads pages, fills forms when you allow it.</p></div>
     <div class="feature reveal"><div class="ico">💸</div><h3>Saves tokens</h3><p>App tools load only when needed and old output is trimmed, so you spend less on AI.</p></div>
-    <div class="feature reveal"><div class="ico">🖥️</div><h3>Stays on your computer</h3><p>Your key is encrypted on your machine. Agents keep working from the tray while your computer is on.</p></div>
+    <div class="feature reveal"><div class="ico">🖥️</div><h3>Local by design</h3><p>Agents, chats, files, memory and logs live in one folder on your computer. Your key is encrypted on your machine. Agents keep working from the tray while your computer is on.</p></div>
   </div>
 </section>
 
 <section id="faq" class="wrap faq">
   <h2 class="reveal">Questions</h2>
+  <details><summary>What does "local" mean? Does anything leave my computer?</summary><p>Frog Bot runs on your own computer: the app, your agents, their files, memory, chats, logs and your encrypted key all stay there, in a folder called FrogsWorld. To think, an agent sends its messages to the AI model you chose (Claude or OpenAI), the same as when you chat with them. Agents also reach the apps you connect (like Slack or ROS) and the websites they browse, only for the work you give them.</p></details>
   <details><summary>What do I need?</summary><p>A Claude API key (console.anthropic.com) or an OpenAI API key (platform.openai.com). Paste it on the first screen. That's it.</p></details>
   <details><summary>Mac says the app “can't be opened” or is “damaged”</summary><p>Frog Bot is not signed with an Apple certificate yet. Use the one-line installer above, which fixes this automatically. If you downloaded the .zip, open Terminal and run: <code>xattr -cr "/Applications/Frog Bot.app" &amp;&amp; codesign --force --deep --sign - "/Applications/Frog Bot.app"</code></p></details>
   <details><summary>Windows says “Windows protected your PC”</summary><p>Click <b>More info</b>, then <b>Run anyway</b>. This shows for new apps that are not yet code-signed.</p></details>
@@ -160,7 +170,7 @@
 </section>
 
 <footer>
-  <div class="wrap">🐸 Frog Bot · made by Sayeem Kabir · <a href="https://github.com/sayeemkabir/frogbot/releases">All downloads</a></div>
+  <div class="wrap">🐸 Frog Bot · your local AI team · made by Sayeem Kabir · <a href="https://github.com/sayeemkabir/frogbot/releases">All downloads</a></div>
 </footer>
 <div class="toast" id="toast">Copied</div>
 
