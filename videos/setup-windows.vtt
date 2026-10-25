@@ -9,14 +9,17 @@ Open your browser and go to sayeemkabir dot github dot io slash frogbot. Click t
 00:00:18.237 --> 00:00:32.464
 Open the file you downloaded. If Windows says it protected your PC, that is normal for new apps. Click More info, then Run anyway. Frog Bot installs and opens by itself.
 
-00:00:32.864 --> 00:00:42.247
+00:00:32.864 --> 00:00:43.972
+Frog Bot opens on the sign up screen. Enter your name, your email, and a password of at least six characters. Your team is private to your account.
+
+00:00:44.372 --> 00:00:53.755
 On the welcome screen, paste your Claude or OpenAI API key and click Start. Your key stays encrypted on your own computer.
 
-00:00:42.647 --> 00:00:52.535
-Your browser then opens the ROS dashboard sign in. Click Allow, just once. Frog Bot stays connected after that.
+00:00:54.155 --> 00:01:01.198
+If you like, open Integrations at the bottom left to connect apps like Slack, Notion or GitHub.
 
-00:00:52.935 --> 00:01:00.053
+00:01:01.598 --> 00:01:08.716
 That is it. Chat with Frog like you would with a teammate, and add more agents with the plus button.
 
-00:01:00.453 --> 00:01:13.006
+00:01:09.116 --> 00:01:21.669
 One last thing. Closing the window keeps Frog Bot running in the tray, so your agents can keep working. To close it fully, right click the frog in the tray and choose Quit.

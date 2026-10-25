@@ -14,7 +14,7 @@
 | **Mac** (Apple Silicon or Intel) | Open **Terminal** (⌘ Space, type Terminal) and paste:<br>`curl -fsSL https://sayeemkabir.github.io/frogbot/install-mac.sh \| bash` |
 | **Linux** (64-bit) | Open a terminal and paste:<br>`curl -fsSL https://sayeemkabir.github.io/frogbot/install-linux.sh \| bash` |
 
-Then paste a **Claude** or **OpenAI** API key on the welcome screen, and click **Allow** when the ROS dashboard sign-in opens. That's all.
+Then create your account (name, email, a password of 6+ characters) and paste a **Claude** or **OpenAI** API key on the welcome screen. That's all.
 
 <details>
 <summary>Prefer to download the Mac or Linux files yourself?</summary>

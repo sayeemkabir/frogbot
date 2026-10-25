@@ -3,32 +3,32 @@ WEBVTT
 00:00:00.000 --> 00:00:08.868
 Welcome to Frog Bot. In the next few minutes you will see how to work with your own team of AI agents, right on your computer.
 
-00:00:09.268 --> 00:00:20.931
-The first time you open Frog Bot, paste a Claude or OpenAI API key and click Start. Your browser then asks you to allow the ROS dashboard, once.
+00:00:09.268 --> 00:00:22.685
+The first time you open Frog Bot, create your account with your email and a password. Then paste a Claude or OpenAI API key and click Start. It stays encrypted on your own computer.
 
-00:00:21.331 --> 00:00:29.369
+00:00:23.085 --> 00:00:31.124
 Frog is your lead agent. Just tell it what you need, in plain words, like you would tell a coworker.
 
-00:00:29.769 --> 00:00:38.917
+00:00:31.524 --> 00:00:40.672
 To add a teammate, press the plus button and choose New agent. Give it a name, pick an emoji, and describe its job.
 
-00:00:39.317 --> 00:00:53.264
-Put agents in a group, and they work together in front of you. Type at, and a name, to talk to one of them. When two agents work together, you see them glow, with a beam between them.
+00:00:41.072 --> 00:00:54.709
+Put agents in a group, and they work together in front of you. Type at, and a name, to talk to one of them. When one agent hands work to another, you see the hand-off right in the chat.
 
-00:00:53.664 --> 00:01:11.996
+00:00:55.109 --> 00:01:13.441
 Under the message box you choose a mode. Ask first, asks before changing things. Auto, just gets it done. Plan, only makes a plan, and gives you a Run this plan button. Click the mode, or press Shift and Tab to switch.
 
-00:01:12.396 --> 00:01:21.195
+00:01:13.841 --> 00:01:22.640
 Anything that sends a message, posts, or deletes, always asks you first. You choose Allow, or Don't allow.
 
-00:01:21.595 --> 00:01:29.728
+00:01:23.040 --> 00:01:31.173
 If an agent needs you in a different chat, a bar appears at the top of whatever you are looking at, with the buttons right there.
 
-00:01:30.128 --> 00:01:42.430
-Open Integrations, at the bottom left, to see your connected apps. The ROS dashboard and the browser are built in, and you can add Slack, Notion, GitHub, and more.
+00:01:31.573 --> 00:01:42.556
+Open Integrations, at the bottom left, to see your connected apps. The browser is built in, and you can add Slack, Notion, GitHub, and more.
 
-00:01:42.830 --> 00:01:52.128
+00:01:42.956 --> 00:01:52.254
 The Logs tab shows everything that happened, with the date and time. And in Settings, Save tokens keeps your AI costs low.
 
-00:01:52.528 --> 00:02:02.241
+00:01:52.654 --> 00:02:02.367
 That is all you need. Give your team its first job. Frog Bot keeps working from the tray, as long as your computer is on.

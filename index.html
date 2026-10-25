@@ -130,8 +130,8 @@
   <p class="sub reveal">Every agent shows what it is doing, live. When two agents work together, you see the hand-off. When one needs you, a bar tells you exactly what and where.</p>
   <div class="shot reveal"><img src="assets/teamwork.png" alt="Two agents working together in a group chat" loading="lazy" /></div>
   <div class="gallery">
-    <figure class="reveal"><div class="shot"><img src="assets/needs-you.png" alt="" loading="lazy" /></div><figcaption>“Needs you” shows any request, from any chat</figcaption></figure>
-    <figure class="reveal"><div class="shot"><img src="assets/approval.png" alt="" loading="lazy" /></div><figcaption>Agents ask before they act for you</figcaption></figure>
+    <figure class="reveal"><div class="shot"><img src="assets/mention.png" alt="" loading="lazy" /></div><figcaption>Type @ to pick an agent, Tab to insert</figcaption></figure>
+    <figure class="reveal"><div class="shot"><img src="assets/approval.png" alt="" loading="lazy" /></div><figcaption>Agents ask before they act, from any chat</figcaption></figure>
     <figure class="reveal"><div class="shot"><img src="assets/plan.png" alt="" loading="lazy" /></div><figcaption>Plan mode: see the plan, then run it</figcaption></figure>
     <figure class="reveal"><div class="shot"><img src="assets/logs.png" alt="" loading="lazy" /></div><figcaption>Logs: everything that happened, with date and time</figcaption></figure>
   </div>
@@ -157,7 +157,7 @@
     <div class="feature reveal"><div class="ico">👥</div><h3>They work together</h3><p>Agents message each other, hand off work, and ask you to add a new teammate when they need one.</p></div>
     <div class="feature reveal"><div class="ico">⚡</div><h3>Ask, Auto or Plan</h3><p>Pick how free they are, per agent or per group. Switch with one click, or Shift+Tab.</p></div>
     <div class="feature reveal"><div class="ico">🛡️</div><h3>Nothing sent without you</h3><p>Posting, sending and deleting always show an Allow / Don't allow card first.</p></div>
-    <div class="feature reveal"><div class="ico">🔌</div><h3>Uses your apps</h3><p>ROS dashboard built in. Add Slack, Notion, GitHub, Linear or any MCP app by filling in a few fields.</p></div>
+    <div class="feature reveal"><div class="ico">🔌</div><h3>Uses your apps</h3><p>Connect Slack, Notion, GitHub, Linear or any MCP app by filling in a few fields.</p></div>
     <div class="feature reveal"><div class="ico">🌐</div><h3>Its own browser</h3><p>Each agent drives its own Chrome window: opens sites, reads pages, fills forms when you allow it.</p></div>
     <div class="feature reveal"><div class="ico">💸</div><h3>Saves tokens</h3><p>App tools load only when needed and old output is trimmed, so you spend less on AI.</p></div>
     <div class="feature reveal"><div class="ico">🖥️</div><h3>Local by design</h3><p>Agents, chats, files, memory and logs live in one folder on your computer. Your key is encrypted on your machine. Agents keep working from the tray while your computer is on.</p></div>
@@ -166,11 +166,11 @@
 
 <section id="faq" class="wrap faq">
   <h2 class="reveal">Questions</h2>
-  <details><summary>What does "local" mean? Does anything leave my computer?</summary><p>Frog Bot runs on your own computer: the app, your agents, their files, memory, chats, logs and your encrypted key all stay there, in a folder called FrogsWorld. To think, an agent sends its messages to the AI model you chose (Claude or OpenAI), the same as when you chat with them. Agents also reach the apps you connect (like Slack or ROS) and the websites they browse, only for the work you give them.</p></details>
+  <details><summary>What does "local" mean? Does anything leave my computer?</summary><p>Frog Bot runs on your own computer: the app, your agents, their files, memory, chats, logs and your encrypted key all stay there, in a folder called FrogsWorld. To think, an agent sends its messages to the AI model you chose (Claude or OpenAI), the same as when you chat with them. Agents also reach the apps you connect (like Slack or Notion) and the websites they browse, only for the work you give them.</p></details>
   <details><summary>What do I need?</summary><p>A Claude API key (console.anthropic.com) or an OpenAI API key (platform.openai.com). Paste it on the first screen. That's it.</p></details>
   <details><summary>Mac says the app “can't be opened” or is “damaged”</summary><p>Frog Bot is not signed with an Apple certificate yet. Use the one-line installer above, which fixes this automatically. If you downloaded the .zip, open Terminal and run: <code>xattr -cr "/Applications/Frog Bot.app" &amp;&amp; codesign --force --deep --sign - "/Applications/Frog Bot.app"</code></p></details>
   <details><summary>Windows says “Windows protected your PC”</summary><p>Click <b>More info</b>, then <b>Run anyway</b>. This shows for new apps that are not yet code-signed.</p></details>
-  <details><summary>How does the ROS dashboard connect?</summary><p>After you add your key, your browser opens the ROS sign-in once. Click Allow. Frog Bot stays connected after that.</p></details>
+  <details><summary>Do I need an account?</summary><p>Yes, a free one. Create it in the app with your name, email and a password of 6 characters or more. Your agents, chats, files and keys stay on your computer; each account has its own private team.</p></details>
   <details><summary>Where are my files?</summary><p>Everything lives in a folder called FrogsWorld in your home folder: each agent's files, shared files, logs and settings.</p></details>
 </section>
 
