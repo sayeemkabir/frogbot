@@ -11,4 +11,5 @@ Start-Process -FilePath $setup -ArgumentList '/S' -Wait
 Remove-Item $setup -Force
 $exe = Join-Path $env:LOCALAPPDATA 'Programs\Frog Bot\Frog Bot.exe'
 Write-Host '  ✅ Done! Opening Frog Bot…'
+Write-Host '  Create your account, then paste your Claude or OpenAI API key.'
 Start-Process $exe

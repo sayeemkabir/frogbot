@@ -26,4 +26,5 @@ xattr -cr "$APP"
 codesign --force --deep --sign - "$APP" >/dev/null 2>&1 || true
 
 echo "  ✅ Done! Frog Bot is in Applications. Opening it now…"
+echo "  Create your account, then paste your Claude or OpenAI API key."
 open "$APP"

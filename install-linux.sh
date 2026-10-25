@@ -55,4 +55,6 @@ StartupWMClass=Frog Bot
 EOF
 
 echo "  ✅ Done! Open Frog Bot from your apps menu, or run: frogbot"
+echo "  Then create your account and paste your Claude or OpenAI API key."
+echo "  (No Chrome? Frog Bot downloads a browser for the agents on first launch.)"
 nohup "$BIN/frogbot" >/dev/null 2>&1 &
