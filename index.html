@@ -3,179 +3,412 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Frog Bot · your local AI team</title>
-<meta name="description" content="Frog Bot is your local AI team: AI agents that live on your own computer and work like teammates. Your agents, files, memory and keys stay local. They talk to each other, use your apps, and ask before they act. Free download for Windows, Mac and Linux." />
-<link rel="icon" href="assets/icon.png" />
-<meta property="og:title" content="Frog Bot · your local AI team" />
-<meta property="og:description" content="Your local AI team. Agents that live on your computer, work together, and ask before they act." />
-<meta property="og:image" content="assets/teamwork.png" />
+<title>Frog Bot · Your AI team, on your computer</title>
+<meta name="description" content="Frog Bot is an open-source desktop app for a team of AI agents that lives on your own computer. Agents work together, use your apps and a browser, and ask before they act. Free for Windows, macOS and Linux." />
+<link rel="icon" type="image/svg+xml" href="assets/mark.svg" />
+<link rel="icon" type="image/png" href="assets/icon.png" />
+<link rel="apple-touch-icon" href="assets/icon.png" />
+<meta name="theme-color" content="#0b0c0e" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Frog Bot · Your AI team, on your computer" />
+<meta property="og:description" content="An open-source team of AI agents that lives on your computer, works together, and asks before it acts." />
+<meta property="og:image" content="https://sayeemkabir.github.io/frogbot/assets/og.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #07090a; --text: #ecf3ee; --dim: #a3b1a8; --faint: #6c7a72; --accent: #3ddc84; --accent2: #4fc3f7; --warn: #ffb74d;
-    --glass: rgba(24, 29, 27, .55); --line: rgba(255, 255, 255, .08); --radius: 22px;
-    --spring: cubic-bezier(.22, 1.2, .36, 1);
+    --bg: #0b0c0e; --surface: #111215; --surface-2: #16181c; --surface-3: #1c1f24;
+    --line: rgba(255, 255, 255, .08); --line-strong: rgba(255, 255, 255, .14);
+    --text: #ededef; --dim: #a1a1aa; --faint: #71717a;
+    --accent: #2fbf71; --accent-hover: #29a964;
+    --warn: #f0a33a;
+    --wrap: 1180px;
+    --font: Inter, 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --mono: 'JetBrains Mono', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
     color-scheme: dark;
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 Inter, 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-  a { color: inherit; }
-  .ambient { position: fixed; inset: -20%; z-index: -1; pointer-events: none; filter: blur(30px);
-    background: radial-gradient(35% 30% at 20% 15%, rgba(61,220,132,.22), transparent 70%), radial-gradient(30% 28% at 85% 10%, rgba(79,195,247,.16), transparent 70%), radial-gradient(40% 35% at 60% 90%, rgba(186,104,200,.12), transparent 70%);
-    animation: drift 30s ease-in-out infinite alternate; }
-  @keyframes drift { to { transform: translate3d(3%, 2%, 0) rotate(6deg); } }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 22px; }
-  nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(18px) saturate(160%); background: rgba(7,9,10,.55); border-bottom: 1px solid var(--line); }
-  nav .wrap { display: flex; align-items: center; gap: 22px; height: 64px; }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 750; font-size: 18px; text-decoration: none; }
-  .brand img { width: 32px; height: 32px; }
-  nav .links { margin-left: auto; display: flex; gap: 22px; font-size: 14.5px; color: var(--dim); }
-  nav .links a { text-decoration: none; transition: color .2s; }
-  nav .links a:hover { color: var(--text); }
-  .gh-link { display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--text); text-decoration: none; font-size: 14px; font-weight: 600; transition: background .2s, border-color .2s; }
-  .gh-link:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.18); }
-  .gh-stars { padding-left: 8px; border-left: 1px solid var(--line); color: var(--dim); font-weight: 500; }
-  @media (max-width: 640px) { .gh-link span:not(.gh-stars) { display: none; } }
-  .hero { text-align: center; padding: 84px 0 40px; }
-  .logo-float { width: 112px; height: 112px; animation: float 4.5s ease-in-out infinite; filter: drop-shadow(0 20px 40px rgba(61,220,132,.35)); }
-  @keyframes float { 50% { transform: translateY(-10px) rotate(-2deg); } }
-  h1 { font-size: clamp(38px, 6vw, 68px); line-height: 1.05; letter-spacing: -1.5px; margin: 22px 0 14px; }
-  h1 .grad { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .lead { color: var(--dim); font-size: clamp(17px, 2vw, 20px); max-width: 680px; margin: 0 auto; }
-  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .9s var(--spring); }
-  .reveal.in { opacity: 1; transform: none; }
-  .download { margin: 38px auto 0; max-width: 620px; padding: 26px; border-radius: var(--radius); background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(24px) saturate(170%); box-shadow: 0 30px 80px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06); }
-  .btn-main { display: inline-flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 18px 26px; border-radius: 16px; border: 0; cursor: pointer;
-    background: linear-gradient(135deg, #46e690, #22b866); color: #03140a; font: 750 19px/1 inherit; text-decoration: none; box-shadow: 0 12px 36px rgba(61,220,132,.35);
-    transition: transform .3s var(--spring), box-shadow .3s; position: relative; overflow: hidden; }
-  .btn-main:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 18px 46px rgba(61,220,132,.5); }
-  .btn-main::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%); transform: translateX(-100%); animation: shine 3.2s ease-in-out infinite; }
-  @keyframes shine { 60%, 100% { transform: translateX(100%); } }
-  .btn-main svg { width: 22px; height: 22px; }
-  .meta { margin-top: 12px; color: var(--faint); font-size: 13.5px; }
-  .cmd { margin-top: 10px; display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 12px; background: #050706; border: 1px solid var(--line); font: 13.5px/1.4 'Cascadia Code', 'SF Mono', Menlo, monospace; text-align: left; }
-  .cmd code { flex: 1; overflow-x: auto; white-space: nowrap; color: #bfe8cf; }
-  .copy { border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--text); border-radius: 8px; padding: 6px 10px; cursor: pointer; font: 600 12.5px inherit; }
-  .steps { text-align: left; margin: 14px 4px 0; color: var(--dim); font-size: 14.5px; padding-left: 20px; }
-  .others { margin-top: 16px; font-size: 14px; color: var(--faint); }
-  .others a { color: var(--dim); margin: 0 6px; }
-  section { padding: 70px 0; }
-  h2 { font-size: clamp(28px, 4vw, 42px); letter-spacing: -.6px; margin: 0 0 10px; text-align: center; }
-  .sub { text-align: center; color: var(--dim); margin: 0 auto 36px; max-width: 640px; }
-  .shot { border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 40px 100px rgba(0,0,0,.6); background: #0a0c0b; }
-  .shot img { display: block; width: 100%; }
-  .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 18px; }
-  .gallery figure { margin: 0; }
-  .gallery figcaption { color: var(--dim); font-size: 14px; margin-top: 8px; text-align: center; }
-  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-  .feature { padding: 22px; border-radius: 18px; background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(16px); transition: transform .4s var(--spring), border-color .3s; }
-  .feature:hover { transform: translateY(-5px); border-color: rgba(61,220,132,.4); }
-  .feature .ico { font-size: 28px; }
-  .feature h3 { margin: 10px 0 6px; font-size: 18px; }
-  .feature p { margin: 0; color: var(--dim); font-size: 15px; }
-  .tabs { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
-  .tab { border: 1px solid var(--line); background: rgba(255,255,255,.04); color: var(--dim); padding: 9px 16px; border-radius: 999px; cursor: pointer; font: 600 14.5px inherit; transition: all .25s; }
-  .tab.on { background: var(--accent); color: #03140a; border-color: var(--accent); }
-  video { width: 100%; display: block; border-radius: 18px; background: #000; border: 1px solid var(--line); box-shadow: 0 40px 100px rgba(0,0,0,.6); }
-  .faq details { border-bottom: 1px solid var(--line); padding: 16px 4px; }
-  .faq summary { cursor: pointer; font-weight: 650; font-size: 17px; list-style: none; display: flex; justify-content: space-between; }
-  .faq summary::after { content: '+'; color: var(--accent); font-size: 22px; transition: transform .3s; }
-  .faq details[open] summary::after { transform: rotate(45deg); }
-  .faq p { color: var(--dim); margin: 10px 0 0; }
-  .faq code { font-size: 13px; background: #050706; padding: 2px 6px; border-radius: 6px; }
-  .local-pill { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 6px 14px; border-radius: 999px; font-size: 14px; font-weight: 650; color: #bff3d4; background: rgba(61,220,132,.1); border: 1px solid rgba(61,220,132,.35); }
-  .local-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 rgba(61,220,132,.7); animation: ping 1.8s ease-out infinite; }
-  @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(61,220,132,.7); } 100% { box-shadow: 0 0 0 10px rgba(61,220,132,0); } }
-  .local-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 10px; margin: 22px auto 0; max-width: 760px; }
-  .local-strip span { padding: 7px 13px; border-radius: 12px; font-size: 14px; color: var(--dim); background: var(--glass); border: 1px solid var(--line); }
-  footer { padding: 40px 0 60px; color: var(--faint); text-align: center; font-size: 14px; border-top: 1px solid var(--line); }
-  .toast { position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 20px); opacity: 0; background: #12201a; border: 1px solid rgba(61,220,132,.4); padding: 10px 16px; border-radius: 12px; transition: all .35s var(--spring); }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; height: auto; display: block; }
+  svg.i { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+  /* nav */
+  nav { position: sticky; top: 0; z-index: 20; background: rgba(11, 12, 14, .82); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; gap: 28px; height: 60px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 650; font-size: 16px; letter-spacing: -.2px; }
+  .brand svg { width: 24px; height: 21px; color: var(--accent); }
+  .links { display: flex; gap: 24px; font-size: 14px; color: var(--dim); }
+  .links a:hover { color: var(--text); }
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+
+  /* buttons */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 14px; border-radius: 9px; font: 600 14px/1 var(--font); border: 1px solid transparent; cursor: pointer; transition: background .15s, border-color .15s, color .15s; white-space: nowrap; }
+  .btn-lg { height: 48px; padding: 0 22px; font-size: 15px; border-radius: 10px; }
+  .btn-primary { background: var(--accent); color: #04140b; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-secondary { background: var(--surface-2); border-color: var(--line-strong); color: var(--text); }
+  .btn-secondary:hover { background: var(--surface-3); }
+  .btn-ghost { color: var(--dim); }
+  .btn-ghost:hover { color: var(--text); }
+  .stars { padding-left: 8px; margin-left: 2px; border-left: 1px solid var(--line-strong); color: var(--dim); font-weight: 500; }
+
+  /* hero */
+  .hero { padding: 88px 0 0; text-align: center; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 5px 6px 5px 12px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); font-size: 13px; color: var(--dim); max-width: 100%; }
+  .eyebrow b { color: var(--text); font-weight: 600; }
+  .eyebrow a { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 999px; background: var(--surface-3); color: var(--text); font-weight: 500; white-space: nowrap; }
+  .eyebrow a:hover { background: #24272d; }
+  h1 { font-size: clamp(40px, 6.4vw, 68px); line-height: 1.04; letter-spacing: -.035em; font-weight: 650; margin: 24px auto 18px; max-width: 900px; }
+  h1 span { color: var(--faint); }
+  .lead { color: var(--dim); font-size: clamp(17px, 2vw, 19px); max-width: 640px; margin: 0 auto; }
+  .cta { display: flex; justify-content: center; gap: 12px; margin-top: 34px; flex-wrap: wrap; }
+  .cta-meta { margin-top: 14px; color: var(--faint); font-size: 13.5px; }
+  .cta-meta a { color: var(--dim); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line-strong); }
+  .cta-meta a:hover { color: var(--text); }
+  .install { max-width: 620px; margin: 22px auto 0; text-align: left; }
+  .install:empty { display: none; }
+  .install-label { font-size: 13px; color: var(--dim); margin-bottom: 8px; }
+  .cmd { display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 14px; border-radius: 10px; background: var(--surface); border: 1px solid var(--line-strong); font: 13.5px/1.4 var(--mono); }
+  .cmd .prompt { color: var(--faint); user-select: none; }
+  .cmd code { flex: 1; overflow-x: auto; white-space: nowrap; color: var(--text); scrollbar-width: none; }
+  .cmd code::-webkit-scrollbar { display: none; }
+  .copy { flex: none; height: 30px; padding: 0 12px; border-radius: 7px; border: 1px solid var(--line-strong); background: var(--surface-3); color: var(--text); font: 500 12.5px var(--font); cursor: pointer; }
+  .copy:hover { background: #24272d; }
+  .install ol { margin: 12px 0 0; padding-left: 20px; color: var(--faint); font-size: 14px; }
+  .install ol b { color: var(--dim); font-weight: 600; }
+
+  .product { position: relative; margin: 64px auto 0; max-width: 1120px; }
+  .product::before { content: ''; position: absolute; inset: -60px 10% auto; height: 70%; z-index: -1; background: radial-gradient(50% 50% at 50% 50%, rgba(47, 191, 113, .1), transparent 70%); filter: blur(10px); }
+  .window { border-radius: 14px; border: 1px solid var(--line-strong); background: var(--surface); overflow: hidden; box-shadow: 0 30px 80px rgba(0, 0, 0, .55); }
+  .window-bar { height: 34px; display: flex; align-items: center; gap: 7px; padding: 0 14px; border-bottom: 1px solid var(--line); background: #0e0f12; }
+  .window-bar i { width: 10px; height: 10px; border-radius: 50%; background: #2a2d33; }
+  .window img { width: 100%; }
+
+  /* sections */
+  section { padding: 120px 0 0; }
+  .section-head { max-width: 680px; margin: 0 0 48px; }
+  .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+  .kicker { font-size: 13px; font-weight: 600; color: var(--accent); letter-spacing: .02em; margin-bottom: 12px; }
+  h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.1; letter-spacing: -.03em; font-weight: 650; margin: 0 0 14px; }
+  .section-head p { color: var(--dim); font-size: 17px; margin: 0; }
+
+  .rows { display: grid; gap: 96px; }
+  .row { display: grid; grid-template-columns: 5fr 7fr; gap: 56px; align-items: center; }
+  .row.flip { grid-template-columns: 7fr 5fr; }
+  .row.flip .row-text { order: 2; }
+  .row h3 { font-size: 26px; line-height: 1.2; letter-spacing: -.02em; font-weight: 650; margin: 0 0 12px; }
+  .row p { color: var(--dim); margin: 0 0 20px; }
+  .row ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .row li { display: flex; gap: 10px; color: var(--dim); font-size: 15px; }
+  .row li svg { color: var(--accent); margin-top: 3px; width: 16px; height: 16px; }
+  .shot { border-radius: 12px; border: 1px solid var(--line-strong); overflow: hidden; background: var(--surface); box-shadow: 0 20px 60px rgba(0, 0, 0, .45); }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--line); gap: 1px; }
+  .cell { background: var(--bg); padding: 28px; }
+  .cell .ico { width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; background: var(--surface-2); border: 1px solid var(--line); color: var(--text); margin-bottom: 18px; }
+  .cell h3 { font-size: 16px; font-weight: 600; margin: 0 0 6px; letter-spacing: -.01em; }
+  .cell p { margin: 0; color: var(--dim); font-size: 14.5px; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .card { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); padding: 28px; }
+  .card h3 { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 600; margin: 0 0 18px; }
+  .card h3 .tag { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .card.out h3 .tag { background: var(--warn); }
+  .card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .card li { display: grid; grid-template-columns: 18px 1fr; gap: 12px; color: var(--dim); font-size: 15px; }
+  .card li svg { margin-top: 3px; width: 16px; height: 16px; color: var(--faint); }
+  .card li b { color: var(--text); font-weight: 600; }
+
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: s; }
+  .step { border: 1px solid var(--line); border-radius: 14px; padding: 26px; background: var(--surface); }
+  .step::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--surface-3); border: 1px solid var(--line-strong); font: 600 13px var(--mono); margin-bottom: 18px; }
+  .step h3 { margin: 0 0 6px; font-size: 16px; font-weight: 600; }
+  .step p { margin: 0; color: var(--dim); font-size: 14.5px; }
+
+  .video-wrap { text-align: center; }
+  .tabs { display: inline-flex; gap: 2px; padding: 3px; border-radius: 10px; background: var(--surface); border: 1px solid var(--line); margin-bottom: 20px; max-width: 100%; }
+  .tab { border: 0; background: transparent; color: var(--dim); padding: 8px 14px; border-radius: 7px; cursor: pointer; font: 500 14px var(--font); white-space: nowrap; }
+  .tab:hover { color: var(--text); }
+  .tab.on { background: var(--surface-3); color: var(--text); box-shadow: inset 0 0 0 1px var(--line-strong); }
+  video { width: 100%; display: block; border-radius: 12px; background: #000; border: 1px solid var(--line-strong); aspect-ratio: 16 / 9; }
+
+  .faq { max-width: 780px; margin: 0 auto; border-top: 1px solid var(--line); }
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 2px; font-weight: 600; font-size: 16px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary svg { color: var(--faint); transition: transform .2s; }
+  .faq details[open] summary svg { transform: rotate(45deg); }
+  .faq p { color: var(--dim); margin: 0 0 20px; padding: 0 2px; font-size: 15px; }
+  .faq code { font: 13px var(--mono); background: var(--surface-2); border: 1px solid var(--line); padding: 1px 6px; border-radius: 6px; word-break: break-all; }
+
+  .final { margin-top: 120px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: 64px 32px; text-align: center; position: relative; overflow: hidden; }
+  .final::before { content: ''; position: absolute; inset: auto 0 -60% 0; height: 100%; background: radial-gradient(40% 50% at 50% 100%, rgba(47, 191, 113, .12), transparent 70%); pointer-events: none; }
+  .final h2 { margin-bottom: 10px; }
+  .final p { color: var(--dim); margin: 0; }
+  .final .cta { position: relative; }
+
+  footer { margin-top: 96px; border-top: 1px solid var(--line); padding: 40px 0 56px; color: var(--faint); font-size: 14px; }
+  footer .wrap { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  footer .brand { color: var(--text); font-size: 15px; }
+  .foot-links { margin-left: auto; display: flex; gap: 22px; flex-wrap: wrap; }
+  .foot-links a:hover { color: var(--text); }
+
+  .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 16px); opacity: 0; pointer-events: none; background: var(--surface-3); border: 1px solid var(--line-strong); padding: 9px 14px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .2s; }
   .toast.on { opacity: 1; transform: translate(-50%, 0); }
-  @media (max-width: 640px) { nav .links { display: none; } .hero { padding-top: 54px; } }
-  @media (prefers-reduced-motion: reduce) { *, *::after { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } }
+
+  @media (max-width: 960px) {
+    .row, .row.flip { grid-template-columns: 1fr; gap: 28px; }
+    .row.flip .row-text { order: 0; }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .rows { gap: 72px; }
+  }
+  @media (max-width: 760px) {
+    .links, .nav-download { display: none; }
+    .hero { padding-top: 56px; }
+    section { padding-top: 88px; }
+    .grid, .split, .steps { grid-template-columns: 1fr; }
+    .product { margin-top: 44px; }
+    .window-bar { height: 24px; padding: 0 10px; gap: 5px; }
+    .window-bar i { width: 7px; height: 7px; }
+    .cta .btn { width: 100%; }
+    .final { padding: 48px 20px; margin-top: 88px; }
+    .foot-links { margin-left: 0; }
+  }
+  @media (max-width: 480px) {
+    .wrap { padding: 0 16px; }
+    .eyebrow > span { display: none; }
+    .eyebrow { padding: 4px; }
+    .gh-label { display: none; }
+    .cell, .card, .step { padding: 22px; }
+    .tabs { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
 </style>
 </head>
 <body>
-<div class="ambient"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <mask id="frog-eyes"><rect width="64" height="64" fill="#fff" /><circle cx="20" cy="22" r="4" fill="#000" /><circle cx="44" cy="22" r="4" fill="#000" /></mask>
+    <symbol id="mark" viewBox="6 12 52 42"><g fill="currentColor" mask="url(#frog-eyes)"><circle cx="20" cy="22" r="10" /><circle cx="44" cy="22" r="10" /><rect x="6" y="24" width="52" height="30" rx="15" /></g></symbol>
+    <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" stroke="none" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.130-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.590.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" /></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7" /></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
+    <symbol id="i-at" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8" /></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" /></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4" /></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 18a9 9 0 1 1 16 0" /><path d="m12 13 4-5" /><circle cx="12" cy="13" r="1.2" /></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" /></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4" /><path d="m11 12 9-9M17 6l3 3M14 9l2 2" /></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z" /></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5" /></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2" /><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3" /></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></symbol>
+  </defs>
+</svg>
+
 <nav>
   <div class="wrap">
-    <a class="brand" href="#"><img src="assets/icon.png" alt="" /> Frog Bot</a>
-    <div class="links"><a href="#see">See it</a><a href="#videos">Videos</a><a href="#features">Features</a><a href="#faq">FAQ</a></div>
-    <a class="gh-link" href="https://github.com/sayeemkabir/frog-bot" target="_blank" rel="noopener" aria-label="Frog Bot on GitHub"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span><span class="gh-stars" id="gh-stars" hidden></span></a>
+    <a class="brand" href="#"><svg aria-hidden="true"><use href="#mark" /></svg>Frog Bot</a>
+    <div class="links"><a href="#product">Product</a><a href="#privacy">Privacy</a><a href="#videos">Videos</a><a href="#faq">FAQ</a></div>
+    <div class="nav-right">
+      <a class="btn btn-ghost" href="https://github.com/sayeemkabir/frog-bot" target="_blank" rel="noopener" aria-label="Frog Bot on GitHub"><svg class="i" style="width:17px;height:17px"><use href="#i-github" /></svg><span class="gh-label">GitHub</span><span class="stars" id="gh-stars" hidden></span></a>
+      <a class="btn btn-secondary nav-download" href="#download">Download</a>
+    </div>
   </div>
 </nav>
 
-<header class="hero wrap">
-  <img class="logo-float" src="assets/icon.png" alt="Frog Bot" />
-  <div class="local-pill reveal"><span class="dot"></span> Runs on your computer</div>
-  <h1 class="reveal">Your <span class="grad">local</span> AI team.</h1>
-  <p class="lead reveal">Frog Bot puts AI teammates on your own computer. Chat with them, put them in a group, and watch them work together. They use your apps, and they always ask before they act for you.</p>
-  <div class="local-strip reveal">
-    <span>🖥️ Lives on your computer</span><span>📁 Your files stay local</span><span>🧠 Memory saved locally</span><span>🔐 Keys encrypted on your machine</span>
-  </div>
-
-  <div class="download reveal" id="download">
-    <a class="btn-main" id="main-btn" href="#">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" /></svg>
-      <span id="main-label">Download Frog Bot</span>
-    </a>
-    <div class="meta" id="main-meta">Free · your local AI team for Windows, Mac and Linux</div>
-    <div id="extra"></div>
-    <div class="others" id="others"></div>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span><b>Open source</b> · Free for Windows, macOS and Linux</span><a href="https://github.com/sayeemkabir/frog-bot" target="_blank" rel="noopener">Star on GitHub <svg class="i" style="width:13px;height:13px"><use href="#i-arrow" /></svg></a></div>
+    <h1>Your AI team,<br /><span>on your computer.</span></h1>
+    <p class="lead">Frog Bot is a desktop app for a team of AI agents. Give each one a job, put them in a group, and watch them hand work to each other. They use your apps and a browser, and they ask before they act.</p>
+    <div class="cta" id="download">
+      <a class="btn btn-primary btn-lg" id="main-btn" href="https://github.com/sayeemkabir/frogbot/releases/latest"><svg class="i"><use href="#i-download" /></svg><span id="main-label">Download Frog Bot</span></a>
+      <a class="btn btn-secondary btn-lg" href="https://github.com/sayeemkabir/frog-bot" target="_blank" rel="noopener"><svg class="i"><use href="#i-github" /></svg>View source</a>
+    </div>
+    <div class="cta-meta" id="main-meta">Free · Windows, macOS and Linux</div>
+    <div class="install" id="extra"></div>
+    <div class="product">
+      <div class="window"><div class="window-bar"><i></i><i></i><i></i></div><img src="assets/hero.webp" width="2718" height="1720" alt="Frog Bot: a group chat where Frog hands a transcription job to Dog, Dog asks permission to run a command, and reports back when done" /></div>
+    </div>
   </div>
 </header>
 
-<section id="see" class="wrap">
-  <h2 class="reveal">Your local teammates, working together</h2>
-  <p class="sub reveal">Every agent shows what it is doing, live. When two agents work together, you see the hand-off. When one needs you, a bar tells you exactly what and where.</p>
-  <div class="shot reveal"><img src="assets/teamwork.png" alt="Two agents working together in a group chat" loading="lazy" /></div>
-  <div class="gallery">
-    <figure class="reveal"><div class="shot"><img src="assets/mention.png" alt="" loading="lazy" /></div><figcaption>Type @ to pick an agent, Tab to insert</figcaption></figure>
-    <figure class="reveal"><div class="shot"><img src="assets/approval.png" alt="" loading="lazy" /></div><figcaption>Agents ask before they act, from any chat</figcaption></figure>
-    <figure class="reveal"><div class="shot"><img src="assets/plan.png" alt="" loading="lazy" /></div><figcaption>Plan mode: see the plan, then run it</figcaption></figure>
-    <figure class="reveal"><div class="shot"><img src="assets/logs.png" alt="" loading="lazy" /></div><figcaption>Logs: everything that happened, with date and time</figcaption></figure>
+<section id="product">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">How it works</div>
+      <h2>Agents that work like teammates.</h2>
+      <p>Each agent has a name, a job, its own memory and its own folder. You see what they do as they do it.</p>
+    </div>
+    <div class="rows">
+      <div class="row">
+        <div class="row-text">
+          <h3>A team, not a chatbot</h3>
+          <p>Put agents in a group and talk to the whole team. Frog, the lead agent, splits the work and hands each part to the right teammate.</p>
+          <ul>
+            <li><svg class="i"><use href="#i-check" /></svg>Live status shows who is working on what</li>
+            <li><svg class="i"><use href="#i-check" /></svg>Hand-offs between agents appear right in the chat</li>
+            <li><svg class="i"><use href="#i-check" /></svg>Type @Name to talk to one agent</li>
+          </ul>
+        </div>
+        <div class="shot"><img src="assets/teamwork.webp" width="2718" height="1720" loading="lazy" alt="Two agents working together in a group chat, with a hand-off from Frog to Dog" /></div>
+      </div>
+      <div class="row flip">
+        <div class="row-text">
+          <h3>Nothing happens without you</h3>
+          <p>Anything that sends, posts, deletes or runs a command asks first. If an agent needs you in another chat, a bar at the top shows it, with the buttons right there.</p>
+          <ul>
+            <li><svg class="i"><use href="#i-check" /></svg>Allow, Don't allow, or always allow</li>
+            <li><svg class="i"><use href="#i-check" /></svg>Stop any agent at any time</li>
+          </ul>
+        </div>
+        <div class="shot"><img src="assets/approval.webp" width="2718" height="1720" loading="lazy" alt="A bar at the top of the app saying Dog needs you, with Allow and Don't allow buttons" /></div>
+      </div>
+      <div class="row">
+        <div class="row-text">
+          <h3>Ask first, Auto, or Plan</h3>
+          <p>Choose how much freedom each agent or group has. In Plan mode the agent only plans; when you like the plan, one click runs it.</p>
+          <ul>
+            <li><svg class="i"><use href="#i-check" /></svg>Switch with one click or Shift+Tab</li>
+            <li><svg class="i"><use href="#i-check" /></svg>Set per agent and per group</li>
+          </ul>
+        </div>
+        <div class="shot"><img src="assets/plan.webp" width="2718" height="1720" loading="lazy" alt="Plan mode: Frog proposes a three-step plan with a Run this plan button" /></div>
+      </div>
+      <div class="row flip">
+        <div class="row-text">
+          <h3>Every action on the record</h3>
+          <p>The Logs view lists everything your team did, with date and time. Filter it, copy it, or save it.</p>
+        </div>
+        <div class="shot"><img src="assets/logs.webp" width="2718" height="1720" loading="lazy" alt="The Logs view with timestamped lines for every agent action" /></div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="videos" class="wrap">
-  <h2 class="reveal">Videos</h2>
-  <p class="sub reveal">A full tour of the app, and a short setup video for each computer.</p>
-  <div class="tabs reveal" id="video-tabs">
-    <button class="tab on" data-video="videos/frog-bot-tutorial.mp4" data-subs="videos/frog-bot-tutorial.vtt">How to use Frog Bot</button>
-    <button class="tab" data-video="videos/setup-windows.mp4" data-subs="videos/setup-windows.vtt">Set up on Windows</button>
-    <button class="tab" data-video="videos/setup-mac.mp4" data-subs="videos/setup-mac.vtt">Set up on Mac</button>
-    <button class="tab" data-video="videos/setup-linux.mp4" data-subs="videos/setup-linux.vtt">Set up on Linux</button>
-  </div>
-  <div class="reveal"><video id="player" controls preload="metadata" poster="assets/home.png" src="videos/frog-bot-tutorial.mp4"><track id="subs" kind="captions" srclang="en" label="English" src="videos/frog-bot-tutorial.vtt" /></video></div>
-</section>
-
-<section id="features" class="wrap">
-  <h2 class="reveal">Simple enough for anyone</h2>
-  <p class="sub reveal">Paste one key, and you have a local team.</p>
-  <div class="features">
-    <div class="feature reveal"><div class="ico">🐸</div><h3>Agents with real jobs</h3><p>Give each agent a name and a job in plain words. Each one has its own memory and its own folder.</p></div>
-    <div class="feature reveal"><div class="ico">👥</div><h3>They work together</h3><p>Agents message each other, hand off work, and ask you to add a new teammate when they need one.</p></div>
-    <div class="feature reveal"><div class="ico">⚡</div><h3>Ask, Auto or Plan</h3><p>Pick how free they are, per agent or per group. Switch with one click, or Shift+Tab.</p></div>
-    <div class="feature reveal"><div class="ico">🛡️</div><h3>Nothing sent without you</h3><p>Posting, sending and deleting always show an Allow / Don't allow card first.</p></div>
-    <div class="feature reveal"><div class="ico">🔌</div><h3>Uses your apps</h3><p>Connect Slack, Notion, GitHub, Linear or any MCP app by filling in a few fields.</p></div>
-    <div class="feature reveal"><div class="ico">🌐</div><h3>Its own browser</h3><p>Each agent drives its own Chrome window: opens sites, reads pages, fills forms when you allow it.</p></div>
-    <div class="feature reveal"><div class="ico">💸</div><h3>Saves tokens</h3><p>App tools load only when needed and old output is trimmed, so you spend less on AI.</p></div>
-    <div class="feature reveal"><div class="ico">🖥️</div><h3>Local by design</h3><p>Agents, chats, files, memory and logs live in one folder on your computer. Your key is encrypted on your machine. Agents keep working from the tray while your computer is on.</p></div>
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Features</div>
+      <h2>Everything a small team needs.</h2>
+    </div>
+    <div class="grid">
+      <div class="cell"><div class="ico"><svg class="i"><use href="#i-user" /></svg></div><h3>Agents with real jobs</h3><p>Describe the job in plain words. Each agent keeps its own memory and files.</p></div>
+      <div class="cell"><div class="ico"><svg class="i"><use href="#i-at" /></svg></div><h3>Groups and mentions</h3><p>Agents message each other and can ask you to add a teammate when they need one.</p></div>
+      <div class="cell"><div class="ico"><svg class="i"><use href="#i-globe" /></svg></div><h3>Its own browser</h3><p>Each agent drives a private Chrome profile: opens sites, reads pages, fills forms when you allow it.</p></div>
+      <div class="cell"><div class="ico"><svg class="i"><use href="#i-plug" /></svg></div><h3>Connects to your apps</h3><p>Slack, Notion, GitHub, Linear, or any MCP server. Slack setup starts from a single button.</p></div>
+      <div class="cell"><div class="ico"><svg class="i"><use href="#i-gauge" /></svg></div><h3>Spends fewer tokens</h3><p>App tools load only when needed and old output is trimmed, so you pay less for AI.</p></div>
+      <div class="cell"><div class="ico"><svg class="i"><use href="#i-moon" /></svg></div><h3>Keeps working</h3><p>Close the window and your team carries on from the tray while your computer is on.</p></div>
+    </div>
   </div>
 </section>
 
-<section id="faq" class="wrap faq">
-  <h2 class="reveal">Questions</h2>
-  <details><summary>What does "local" mean? Does anything leave my computer?</summary><p>Frog Bot runs on your own computer: the app, your agents, their files, memory, chats, logs and your encrypted key all stay there, in a folder called FrogsWorld. To think, an agent sends its messages to the AI model you chose (Claude or OpenAI), the same as when you chat with them. Agents also reach the apps you connect (like Slack or Notion) and the websites they browse, only for the work you give them.</p></details>
-  <details><summary>What do I need?</summary><p>A Claude API key (console.anthropic.com) or an OpenAI API key (platform.openai.com). Paste it on the first screen. That's it.</p></details>
-  <details><summary>Mac says the app “can't be opened” or is “damaged”</summary><p>Frog Bot is not signed with an Apple certificate yet. Use the one-line installer above, which fixes this automatically. If you downloaded the .zip, open Terminal and run: <code>xattr -cr "/Applications/Frog Bot.app" &amp;&amp; codesign --force --deep --sign - "/Applications/Frog Bot.app"</code></p></details>
-  <details><summary>Windows says “Windows protected your PC”</summary><p>Click <b>More info</b>, then <b>Run anyway</b>. This shows for new apps that are not yet code-signed.</p></details>
-  <details><summary>Do I need an account?</summary><p>Yes, a free one. Create it in the app with your name, email and a password of 6 characters or more. Your agents, chats, files and keys stay on your computer; each account has its own private team.</p></details>
-  <details><summary>Where are my files?</summary><p>Everything lives in a folder called FrogsWorld in your home folder: each agent's files, shared files, logs and settings.</p></details>
+<section id="privacy">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Privacy</div>
+      <h2>Local by design.</h2>
+      <p>Frog Bot runs on your computer and keeps your team there. Here is exactly what stays and what leaves.</p>
+    </div>
+    <div class="split">
+      <div class="card">
+        <h3><span class="tag"></span>Stays on your computer</h3>
+        <ul>
+          <li><svg class="i"><use href="#i-chat" /></svg><span><b>Agents, chats and memory</b>, in one folder called FrogsWorld</span></li>
+          <li><svg class="i"><use href="#i-file" /></svg><span><b>Files</b> your agents create and share</span></li>
+          <li><svg class="i"><use href="#i-key" /></svg><span><b>Your API key and app sign-ins</b>, encrypted on your machine</span></li>
+          <li><svg class="i"><use href="#i-folder" /></svg><span><b>Logs</b> of everything your team did</span></li>
+        </ul>
+      </div>
+      <div class="card out">
+        <h3><span class="tag"></span>Leaves only when needed</h3>
+        <ul>
+          <li><svg class="i"><use href="#i-cpu" /></svg><span><b>Messages to the AI model</b> you choose (Claude or OpenAI), with your own key</span></li>
+          <li><svg class="i"><use href="#i-plug" /></svg><span><b>Requests to apps you connect</b> and sites agents visit, for the work you give them</span></li>
+          <li><svg class="i"><use href="#i-user" /></svg><span><b>Your name and email</b>, so you can sign in to your account</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="kicker">Get started</div>
+      <h2>Up and running in two minutes.</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>Install</h3><p>Download for your computer, or paste one command on Mac and Linux.</p></div>
+      <div class="step"><h3>Create your account</h3><p>Your name, email and a password. Each account has its own private team.</p></div>
+      <div class="step"><h3>Add your key</h3><p>Paste a Claude or OpenAI API key, then give Frog its first job.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="videos">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="kicker">Videos</div>
+      <h2>See it in action.</h2>
+      <p>A full tour of the app, and a short setup video for each computer.</p>
+    </div>
+    <div class="video-wrap">
+      <div class="tabs" id="video-tabs">
+        <button class="tab on" data-video="videos/frog-bot-tutorial.mp4" data-subs="videos/frog-bot-tutorial.vtt">Tour</button>
+        <button class="tab" data-video="videos/setup-windows.mp4" data-subs="videos/setup-windows.vtt">Windows setup</button>
+        <button class="tab" data-video="videos/setup-mac.mp4" data-subs="videos/setup-mac.vtt">Mac setup</button>
+        <button class="tab" data-video="videos/setup-linux.mp4" data-subs="videos/setup-linux.vtt">Linux setup</button>
+      </div>
+      <video id="player" controls preload="metadata" playsinline poster="assets/hero.webp" src="videos/frog-bot-tutorial.mp4"><track id="subs" kind="captions" srclang="en" label="English" src="videos/frog-bot-tutorial.vtt" /></video>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head center"><h2>Questions</h2></div>
+    <div class="faq">
+      <details><summary>What do I need?<svg class="i"><use href="#i-plus" /></svg></summary><p>A computer running Windows 10 or 11, macOS, or 64-bit Linux, and an API key from Anthropic (console.anthropic.com) or OpenAI (platform.openai.com). You pay the AI provider directly for what your agents use.</p></details>
+      <details><summary>Does anything leave my computer?<svg class="i"><use href="#i-plus" /></svg></summary><p>Your agents, chats, files, memory, logs and encrypted keys stay in a folder called FrogsWorld on your computer. To think, an agent sends its messages to the AI model you chose. Agents also reach the apps you connect and the websites they visit, only for the work you give them. Your name and email are kept with your account so you can sign in.</p></details>
+      <details><summary>Do I need an account?<svg class="i"><use href="#i-plus" /></svg></summary><p>Yes, a free one. Create it in the app with your name, email and a password of at least 6 characters. Each account has its own private team on your computer.</p></details>
+      <details><summary>Is it really free?<svg class="i"><use href="#i-plus" /></svg></summary><p>Yes. Frog Bot is open source under the MIT license. The only cost is what your AI provider charges for your key.</p></details>
+      <details><summary>Mac says the app can't be opened or is damaged<svg class="i"><use href="#i-plus" /></svg></summary><p>Frog Bot is not signed with an Apple certificate yet. The one-line installer fixes this for you. If you downloaded the .zip, run this once in Terminal: <code>xattr -cr "/Applications/Frog Bot.app" &amp;&amp; codesign --force --deep --sign - "/Applications/Frog Bot.app"</code></p></details>
+      <details><summary>Windows says "Windows protected your PC"<svg class="i"><use href="#i-plus" /></svg></summary><p>Click More info, then Run anyway. Windows shows this for new apps that are not code-signed yet.</p></details>
+      <details><summary>Where are my files?<svg class="i"><use href="#i-plus" /></svg></summary><p>In a folder called FrogsWorld in your home folder: each agent's files, shared files, logs and settings.</p></details>
+    </div>
+
+    <div class="final">
+      <h2>Give your team its first job.</h2>
+      <p>Free and open source. Windows, macOS and Linux.</p>
+      <div class="cta">
+        <a class="btn btn-primary btn-lg" id="final-btn" href="#download"><svg class="i"><use href="#i-download" /></svg><span id="final-label">Download Frog Bot</span></a>
+        <a class="btn btn-secondary btn-lg" href="https://github.com/sayeemkabir/frog-bot" target="_blank" rel="noopener"><svg class="i"><use href="#i-github" /></svg>Star on GitHub</a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <footer>
-  <div class="wrap">🐸 Frog Bot · your local AI team · open source · made by Sayeem Kabir · <a href="https://github.com/sayeemkabir/frog-bot">Source code</a> · <a href="https://github.com/sayeemkabir/frogbot/releases">All downloads</a></div>
+  <div class="wrap">
+    <a class="brand" href="#"><svg aria-hidden="true"><use href="#mark" /></svg>Frog Bot</a>
+    <span>Open source (MIT) · Made by Sayeem Kabir</span>
+    <div class="foot-links">
+      <a href="https://github.com/sayeemkabir/frog-bot">Source code</a>
+      <a href="https://github.com/sayeemkabir/frog-bot/issues">Report an issue</a>
+      <a href="https://github.com/sayeemkabir/frogbot/releases">All downloads</a>
+    </div>
+  </div>
 </footer>
 <div class="toast" id="toast">Copied</div>
 
@@ -183,32 +416,44 @@
   const BASE = 'https://github.com/sayeemkabir/frogbot/releases/latest/download/';
   const SITE = 'https://sayeemkabir.github.io/frogbot/';
   const files = {
-    windows: { label: 'Download for Windows', file: 'FrogBot-Setup-Windows.exe', meta: 'Windows 10 and 11 · 64-bit installer' },
-    mac: { label: 'Download for Mac', file: 'FrogBot-Mac-arm64.zip', meta: 'Apple Silicon (M1, M2, M3, M4)' },
-    macIntel: { label: 'Download for Mac (Intel)', file: 'FrogBot-Mac-x64.zip', meta: 'Intel Mac' },
-    linux: { label: 'Download for Linux', file: 'FrogBot-Linux-x64.tar.gz', meta: '64-bit Linux (x86_64)' },
+    windows: { label: 'Download for Windows', file: 'FrogBot-Setup-Windows.exe', meta: 'Windows 10 and 11 · 64-bit' },
+    mac: { label: 'Download for Mac', file: 'FrogBot-Mac-arm64.zip', meta: 'macOS · Apple Silicon (M1 and later)' },
+    macIntel: { label: 'Download for Mac (Intel)', file: 'FrogBot-Mac-x64.zip', meta: 'macOS · Intel' },
+    linux: { label: 'Download for Linux', file: 'FrogBot-Linux-x64.tar.gz', meta: 'Linux · 64-bit (x86_64)' },
   };
   const commands = {
-    windows: `irm ${SITE}install-windows.ps1 | iex`,
     mac: `curl -fsSL ${SITE}install-mac.sh | bash`,
     linux: `curl -fsSL ${SITE}install-linux.sh | bash`,
   };
+  const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
   function detectOS() {
     const p = ((navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '').toLowerCase();
     const ua = navigator.userAgent.toLowerCase();
+    if (/android|iphone|ipad|ipod/.test(ua)) return 'mobile';
     if (p.includes('win') || ua.includes('windows')) return 'windows';
     if (p.includes('mac') || ua.includes('mac os')) return 'mac';
     if (p.includes('linux') || ua.includes('linux') || ua.includes('x11')) return 'linux';
     return 'windows';
   }
 
-  function cmdBox(cmd, title) {
-    return `<div class="meta" style="margin-top:18px">${title}</div><div class="cmd"><code>${cmd}</code><button class="copy" data-copy="${cmd.replace(/"/g, '&quot;')}">Copy</button></div>`;
+  function cmdBox(cmd, label) {
+    return `<div class="install-label">${label}</div><div class="cmd"><span class="prompt">$</span><code>${esc(cmd)}</code><button class="copy" data-copy="${esc(cmd)}">Copy</button></div>`;
   }
 
   async function render() {
     const os = detectOS();
+    const all = [files.windows, files.mac, files.macIntel, files.linux];
+    const link = (f) => `<a href="${BASE + f.file}">${f.label.replace('Download for ', '')}</a>`;
+    if (os === 'mobile') {
+      // Phones can't run it: point to the desktop downloads instead.
+      for (const id of ['main', 'final']) {
+        document.getElementById(`${id}-btn`).href = 'https://github.com/sayeemkabir/frogbot/releases/latest';
+        document.getElementById(`${id}-label`).textContent = 'Get it for your computer';
+      }
+      document.getElementById('main-meta').innerHTML = `A desktop app for ${all.map(link).join(', ')}`;
+      return;
+    }
     let macFile = files.mac;
     if (os === 'mac' && navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
       try {
@@ -217,31 +462,26 @@
       } catch {}
     }
     const choice = os === 'mac' ? macFile : files[os];
-    document.getElementById('main-btn').href = BASE + choice.file;
-    document.getElementById('main-label').textContent = choice.label;
-    document.getElementById('main-meta').textContent = `${choice.meta} · free`;
+    for (const id of ['main', 'final']) {
+      document.getElementById(`${id}-btn`).href = BASE + choice.file;
+      document.getElementById(`${id}-label`).textContent = choice.label;
+    }
+    document.getElementById('main-meta').innerHTML = `${choice.meta} · Also for ${all.filter((f) => f !== choice).map(link).join(', ')}`;
     const extra = document.getElementById('extra');
     if (os === 'mac') {
-      extra.innerHTML = cmdBox(commands.mac, 'Easiest on Mac: paste this into Terminal (it installs, handles Mac security, and opens the app)') +
-        `<ol class="steps"><li>Press ⌘ Space, type <b>Terminal</b>, press Enter.</li><li>Paste the command, press Enter.</li><li>Frog Bot opens. Paste your API key. Done.</li></ol>`;
+      extra.innerHTML = cmdBox(commands.mac, 'Or install with one command (recommended on Mac: it also handles Mac security)') +
+        `<ol><li>Press <b>⌘ Space</b>, type <b>Terminal</b>, press Enter.</li><li>Paste the command and press Enter. Frog Bot opens by itself.</li></ol>`;
     } else if (os === 'linux') {
-      extra.innerHTML = cmdBox(commands.linux, 'Easiest on Linux: paste this into a terminal') +
-        `<ol class="steps"><li>Open a terminal.</li><li>Paste the command, press Enter (it may ask your password once).</li><li>Open Frog Bot from your apps menu.</li></ol>`;
-    } else {
-      extra.innerHTML = `<ol class="steps"><li>Open the downloaded <b>FrogBot-Setup-Windows.exe</b>.</li><li>If Windows warns you, click <b>More info → Run anyway</b>.</li><li>Frog Bot opens. Paste your API key. Done.</li></ol>`;
+      extra.innerHTML = cmdBox(commands.linux, 'Or install with one command') +
+        `<ol><li>Open a terminal, paste the command and press Enter.</li><li>It may ask for your password once. Frog Bot opens by itself.</li></ol>`;
     }
-    const others = [];
-    if (os !== 'windows') others.push(`<a href="${BASE + files.windows.file}">Windows</a>`);
-    if (os !== 'mac') others.push(`<a href="${BASE + files.mac.file}">Mac (Apple Silicon)</a>`);
-    others.push(`<a href="${BASE + files.macIntel.file}">Mac (Intel)</a>`);
-    if (os !== 'linux') others.push(`<a href="${BASE + files.linux.file}">Linux</a>`);
-    document.getElementById('others').innerHTML = `Other computers: ${others.join(' · ')}`;
   }
   render();
+
   fetch('https://api.github.com/repos/sayeemkabir/frog-bot').then((r) => (r.ok ? r.json() : null)).then((repo) => {
     if (!repo || typeof repo.stargazers_count !== 'number') return;
     const el = document.getElementById('gh-stars');
-    el.textContent = '★ ' + repo.stargazers_count;
+    el.textContent = repo.stargazers_count.toLocaleString();
     el.hidden = false;
   }).catch(() => {});
 
@@ -258,15 +498,12 @@
   document.getElementById('video-tabs').addEventListener('click', (e) => {
     const tab = e.target.closest('.tab');
     if (!tab) return;
-    document.querySelectorAll('.tab').forEach((t) => t.classList.toggle('on', t === tab));
+    document.querySelectorAll('#video-tabs .tab').forEach((t) => t.classList.toggle('on', t === tab));
     const player = document.getElementById('player');
     player.src = tab.dataset.video;
     document.getElementById('subs').src = tab.dataset.subs;
     player.play().catch(() => {});
   });
-
-  const io = new IntersectionObserver((entries) => entries.forEach((en) => en.isIntersecting && en.target.classList.add('in')), { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = `${(i % 4) * 70}ms`; io.observe(el); });
 </script>
 </body>
 </html>

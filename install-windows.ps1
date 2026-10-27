@@ -4,7 +4,7 @@ $ErrorActionPreference = 'Stop'
 $url = 'https://github.com/sayeemkabir/frogbot/releases/latest/download/FrogBot-Setup-Windows.exe'
 $setup = Join-Path $env:TEMP 'FrogBot-Setup-Windows.exe'
 Write-Host ''
-Write-Host '  🐸  Downloading Frog Bot for Windows…'
+Write-Host '  Downloading Frog Bot for Windows…'
 Invoke-WebRequest -Uri $url -OutFile $setup -UseBasicParsing
 Write-Host '  Installing…'
 Start-Process -FilePath $setup -ArgumentList '/S' -Wait

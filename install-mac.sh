@@ -11,7 +11,7 @@ TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
 echo ""
-echo "  🐸  Installing Frog Bot for Mac ($KIND)"
+echo "  Installing Frog Bot for Mac ($KIND)"
 echo ""
 curl -fL --progress-bar "$URL" -o "$TMP/frogbot.zip"
 
